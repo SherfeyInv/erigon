@@ -11,9 +11,6 @@ ARG GITHUB_TOKEN
 
 RUN go build -o releaser main.go
 RUN ./releaser --github-token=$GITHUB_TOKEN
-
-FROM nginx:1.26.2-alpine
-
 COPY page /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/releases.json /usr/share/nginx/html/data.json
